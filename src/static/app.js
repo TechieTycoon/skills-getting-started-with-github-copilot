@@ -60,7 +60,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (response.ok) {
         messageDiv.textContent = result.message;
-        messageDiv.className = "success";
+              // Add participants list
+              const participantsList = details.participants.map(p => `<li>${p}</li>`).join('');
+              const participantsSection = `
+                <div class="participants-section">
+                  <h5>Current Participants (${details.participants.length}/${details.max_participants})</h5>
+                  <ul class="participants-list">
+                    ${participantsList}
+                  </ul>
+                </div>
+              `;
+        
+              activityCard.innerHTML += participantsSection;
         signupForm.reset();
       } else {
         messageDiv.textContent = result.detail || "An error occurred";
